@@ -1,0 +1,158 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Page User {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="title">Tickit Details</h5>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+
+            <div class="col-md-6 pr-md-1">
+              <div class="form-group">
+                <label>Title </label>
+                </br>
+               <p class="">{{object.title}}</p>
+              </div>
+            </div>
+            
+            <div class="col-md-6 pr-md-1">
+              <div class="form-group">
+                <label>DESCREPTION</label>
+                <br>
+                <p> {{ object.body }} </p>
+              </div>
+            </div>
+
+          </div>
+        </br>
+          <div class="row">
+            <div class="col-md-6 pr-md-1">
+              <div class="form-group">
+                <label>Assigned Developer</label>
+                <br>
+              <p> {{object.assigned_developer.profile.full_name}} </p>
+              </div>
+            </div>
+            <div class="col-md-6 pl-md-1">
+              <div class="form-group">
+                <label>Submitter</label>
+                <br>
+                <p>{{object.owner}}</p>
+              </div>
+            </div>
+          </div>
+          
+        </br>
+        <div class="row">
+          <div class="col-md-6 pr-md-1">
+            <div class="form-group">
+              <label>Project</label>
+              <br>
+              <p>{{object.project}}</p>
+            </div>
+          </div>
+          <div class="col-md-6 pl-md-1">
+            <div class="form-group">
+              <label>Ticket Priority</label>
+              <br>
+              <p> {{object.get_priority_display}} </p>
+            </div>
+          </div>
+        </div>
+            </br>
+            <div class="row">
+            <div class="col-md-6 pr-md-1">
+                <div class="form-group">
+                <label>Ticket Status</label>
+                <br>
+              <p>{{object.get_status_display}} </p>
+                </div>
+            </div>
+            <div class="col-md-6 pl-md-1">
+                <div class="form-group">
+                <label>Ticket Type</label>
+                <br>
+              <p> {{object.get_kind_display}} </p>
+                </div>
+            </div>
+            </div>
+            </br>
+            <div class="row">
+            <div class="col-md-6 pr-md-1">
+                <div class="form-group">
+                <label>Created</label>
+                <br>
+              <p> {{object.creation_time}} </p>
+                </div>
+            </div>
+            <div class="col-md-6 pl-md-1">
+                <div class="form-group">
+                <label>Updated</label>
+                <br>
+              <p> {{object.last_update }} </p>
+                </div>
+            </div>
+            </div>
+        </form>
+      </div>
+      <div class="card-footer"> 
+          <a href="{% url 'operation:update_ticket' pk=object.id %}">
+            <button class='btn btn-success' type="submit">Edit</button>  
+          </a>    
+
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5> Comments </h5>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'operation:view_ticket' pk=object.id %}" method="POST">
+                  {% csrf_token %}
+
+                    <div class="row">
+                      <div class="col-md-8 pr-md-1">
+                        <div class="form-group">
+                            <label>Add Comment </label>
+                            <input type="text" class="form-control", name="comment">
+                        </div>
+                      </div>
+                      <div class="col-md-2 pr-md-1">
+                          <br>
+                        <button class='btn btn-primary' type="submit">submit</button>
+                      </div>
+
+                    </div>
+                </form>
+                {% for comment in object.comment_set.all %}
+                <div class="col-md-8 pr-md-1">
+
+                    <div class="alert alert-info" >
+                        <span>{{comment.body}}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

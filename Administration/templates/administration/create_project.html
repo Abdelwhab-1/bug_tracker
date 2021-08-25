@@ -1,0 +1,113 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Create Project {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+
+              <form role="form" method="post" action="">
+              
+                {% csrf_token %} 
+
+                <div class="card-header">
+                  <h5 class="title">Register</h5>
+
+                  <h6 class="card-category">
+                      {% if msg %}
+                        <span class="text-danger">{{ msg | safe }}</span>
+                      {% else %}
+                        Add your credentials 
+                      {% endif %}  
+                  </h6>
+                </div>
+
+                <div class="card-body">
+
+
+                    <div class="row">
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <label>Title</label>
+                          {{ form.title }}
+                        </div>
+                      </div>
+                    </div>
+
+                    
+
+                    <span class="text-danger">{{ form.title.errors }}</span>
+
+                    <div class="row">
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <label>Descreption</label>
+                          {{ form.descreption }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <span class="text-danger">{{ form.descreption.errors }}</span>
+
+                    <div class="row">
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <label>url</label>
+                          {{ form.url }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <span class="text-danger">{{ form.url.errors }}</span>
+
+                    <div class="row">
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <label>Developers</label>
+                          {{ form.developers }}
+                        </div>
+                      </div>
+                    </div>
+                    <span class="text-danger">{{ form.developers.errors }}</span>
+                    
+                    <div class="row">
+                        <div class="col-md-3 px-md-1">
+                            <div class="form-group">
+                            <label>Project Manager</label>
+                            {{ form.project_manager }}
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-danger">{{ form.project_manager.errors }}</span>
+
+                    <div class="row">
+                        <div class="col-md-3 px-md-1">
+                            <div class="form-group">
+                            <label>Image</label>
+                            {{ form.image }}
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-danger">{{ form.image.errors }}</span>
+
+                </div>
+                <div class="card-footer">
+                  <button type="submit" name="register" class="btn btn-fill btn-primary">Submit</button>
+               </div>
+
+              </form>
+
+            </div>
+          </div>
+      </div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

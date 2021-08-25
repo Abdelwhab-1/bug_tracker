@@ -1,0 +1,100 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header">
+        <h4 class="card-title"> Simple Table</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th>
+                  Title
+                </th>
+                <th>
+                  Project Name 
+                </th>
+                <th>
+                  Developer Assigned
+                </th>
+                <th>
+                    Ticket Priority
+                </th>                
+                <th>
+                    Ticket Status 
+                </th>                
+                <th>
+                    Ticket TYpe 
+                </th>                
+                <th>
+                    Created 
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ticket in object_list %}
+              <tr>
+                <td>
+                  {{ticket.title}}
+                </td>
+                <td>
+                  {{ticket.project}}
+                </td>
+                <td>
+                 {{ticket.assigned_developer.profile.full_name}}
+                </td>
+                <td>
+                    {{ticket.get_priority_display}}
+                </td>
+                <td>
+                    {{ticket.get_status_display}}
+                </td>
+                <td>
+                    {{ticket.get_kind_display}}
+                </td>
+                <td>
+                    {{ticket.creation_time}}
+                </td>
+                <td>
+                    <a href="{% url 'operation:view_ticket' pk=ticket.id %}">visit </a>
+                </td>
+              </tr>
+              {% empty %}
+              <p> No Project yet.</p>
+              {%endfor%}
+            </tbody>
+          </table>
+          {% if is_paginated %}
+          <div class="pagination">
+              <span class="page-links">
+                  {% if page_obj.has_previous %}
+                      <a href="{%url 'operation:user_tickets'%}?page={{ objec.previous_page_number }}">previous</a>
+                  {% endif %}
+                  <span class="page-current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+                  {% if page_obj.has_next %}
+                      <a href="{%url 'operation:user_tickets'%}?page={{ page_obj.next_page_number }}">next</a>
+                  {% endif %}
+              </span>
+          </div>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

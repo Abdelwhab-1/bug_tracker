@@ -1,0 +1,173 @@
+
+
+
+{% extends 'layouts/base.html' %}
+
+{% block title %} Page User {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  
+  <div class="col-md-8">
+    <div class="card ">
+      <div class="card-header">
+        <h4 class="card-title"> Assigned Users </h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th>
+                  Full Name 
+                </th>
+                <th>
+                  email
+                </th>
+                <th>
+                  role
+                </th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for developer in object.developers.all %}
+              <tr>
+                <td>
+                  {{developer.profile.full_name}}  
+                </td>
+                <td>
+                 {{ developer.email}}
+                </td>
+                <td>
+                 developer
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card card-user">
+      <div class="card-body">
+        <p class="card-text">
+          <div class="author">
+            <div class="block block-one"></div>
+            <div class="block block-two"></div>
+            <div class="block block-three"></div>
+            <div class="block block-four"></div>
+            <a href="javascript:void(0)">
+              <img class="avatar" src="{{object.image}}" alt="...">
+              
+            </a>
+            <p class="description">
+              {{ object.title }}
+            </p>
+          </div>
+        </p>
+        <div class="card-description">
+          {{object.descreption}}
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="button-container">
+          
+              <a href="{{object.url}}">
+                <button href="{{object.url}}" class="btn btn-icon btn-round btn-google">
+                    <i class="fab fa-google-plus"></i>
+                </button>
+                
+              </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card  card-plain">
+      <div class="card-header">
+        <h4 class="card-title"> Tickets </h4>
+        <p class="category"> Tickets assoiciated with the Project </p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th>
+                  title
+                </th>
+                <th>
+                  submitter
+                </th>
+                <th>
+                  Developer
+                </th>
+                <th >
+                  status
+                </th>
+                <th >
+                  creation time
+                </th>
+              </th>
+              <th >
+                link
+              </th>
+              </tr>
+              
+            </thead>
+            <tbody>
+              {% for ticket in object.ticket_set.all %}
+              <tr>
+                <td>
+                  {{ticket.title}}
+                </td>
+                <td>
+                  {{ticket.owner.profile.full_name}}
+                </td>
+                <td>
+                 {{ticket.developer }}
+                </td>
+                <td>
+                  {{ticket.status}}
+                </td>
+                <td>
+                  {{ticket.creation_time}}
+                </td>
+                <td>
+                  <a href="{% url 'operation:view_ticket' pk=ticket.id %}">visit</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        
+          <a href="{% url 'operation:create_ticket' pk=object.id %}">
+            <button class="btn btn-primary">
+              Create Ticket
+            </button>
+
+          </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
+
+
+

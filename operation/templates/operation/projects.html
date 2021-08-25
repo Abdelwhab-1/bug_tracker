@@ -1,0 +1,75 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header">
+        <h4 class="card-title"> Simple Table</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th>
+                  Title
+                </th>
+                <th>
+                  Descreption
+                </th>
+                <th>
+                  link
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for project in object_list %}
+              <tr>
+                <td>
+                  {{project.title}}
+                </td>
+                <td>
+                  {{project.descreption}}
+                </td>
+                <td>
+                  <a href="{% url 'operation:project_details' pk=project.id %}">visit it</a>
+                </td>
+
+              </tr>
+              {% empty %}
+              <p> No Project yet.</p>
+              {%endfor%}
+            </tbody>
+          </table>
+          {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="{%url 'operation:projects'%}?page={{ objec.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="{%url 'operation:projects'%}?page={{ page_obj.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
