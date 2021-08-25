@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-uftlp!e*li*iaqx28p)%dd76lh!gpqi7a(5d*689_$y2te=-63'
-SECRET_KEY = "x1)%g1p*00*0w_7k)(jb_21g2_-!gqn+=80pgaz27+4nwu0339"
+SECRET_KEY = ""
 SECURE_HSTS_SECONDS = 1 
 SECURE_SSL_REDIRECT = True 
 SESSION_COOKIE_SECURE = True 
@@ -137,7 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static") 
+STATIC_ROOT = os.path.join(BASE_DIR, "assets") 
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
